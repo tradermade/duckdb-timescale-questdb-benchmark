@@ -12,7 +12,7 @@ gives you ground-truth answers to check every result against.
 ## What's inside
 
 ```
-data/                 2-week EURUSD + USDJPY tick sample (Parquet) + data dictionary
+data/                 2-week EURUSD + GBPJPY tick sample (Parquet) + data dictionary
 docker-compose.yml    TimescaleDB + QuestDB, versions pinned to the article
 sql/                  the schema each engine uses, as plain reference SQL
 scripts/
@@ -25,7 +25,7 @@ scripts/
 Makefile              up / install / load-all / verify shortcuts
 ```
 
-The sample is ~6.2M ticks: **EURUSD 3,199,137** and **USDJPY 3,047,038** rows, 2026-09-27 →
+The sample is ~8.7M ticks: **EURUSD 3,199,137** and **GBPJPY 5,486,036** rows, 2026-09-27 →
 2026-10-09 UTC. Schema and terms are in [`data/README.md`](data/README.md).
 
 ## Quickstart

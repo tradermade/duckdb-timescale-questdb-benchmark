@@ -6,9 +6,9 @@ data into DuckDB, TimescaleDB and QuestDB and reproduce the comparison yourself.
 | File | Symbol | Rows | Period (UTC) |
 |------|--------|-----:|--------------|
 | `EURUSD_2026-09-27_2026-10-09.parquet` | EURUSD | 3,199,137 | 2026-09-27 21:00 → 2026-10-09 21:00 |
-| `USDJPY_2026-09-27_2026-10-09.parquet` | USDJPY | 3,047,038 | 2026-09-27 21:00 → 2026-10-09 21:00 |
+| `GBPJPY_2026-09-27_2026-10-09.parquet` | GBPJPY | 5,486,036 | 2026-09-27 21:00 → 2026-10-09 21:00 |
 
-About 12 calendar days each (two full trading weeks, weekends naturally empty), ~6.2M ticks total.
+About 12 calendar days each (two full trading weeks, weekends naturally empty), ~8.7M ticks total.
 
 ## Columns
 
@@ -16,7 +16,7 @@ About 12 calendar days each (two full trading weeks, weekends naturally empty), 
 |--------|------|---------|
 | `symbol` | string | Instrument, e.g. `EURUSD`. |
 | `provider_ts_ms` | int64 | Quote timestamp as **epoch milliseconds, UTC** (the provider's own `time`). |
-| `bid` | double | Best bid. Rounded to the instrument's convention (5 dp for EURUSD, 3 dp for USDJPY). |
+| `bid` | double | Best bid. Rounded to the instrument's convention (5 dp for EURUSD, 3 dp for GBPJPY). |
 | `ask` | double | Best ask, same rounding. |
 | `capture_id` | int64 | 1..N in `(provider_ts_ms, bid, ask)` order. Breaks ties when two quotes share a millisecond so every row stays uniquely identifiable — important for replay-safe de-duplication. |
 

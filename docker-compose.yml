@@ -1,0 +1,50 @@
+# Spin up TimescaleDB and QuestDB locally so you can reproduce the benchmark.
+# DuckDB needs no service — it is embedded (just `pip install duckdb`).
+#
+#   docker compose up -d
+#
+# Versions are pinned to the ones used in the article. Adjust if you like.
+services:
+  timescaledb:
+    image: timescale/timescaledb:2.31.0-pg18
+    container_name: tsdb_market
+    environment:
+      POSTGRES_USER: bench
+      POSTGRES_PASSWORD: bench
+      POSTGRES_DB: market
+    command: >
+      postgres -c shared_preload_libraries=timescaledb
+               -c max_wal_size=4GB
+               -c synchronous_commit=on
+               -c fsync=on
+    ports:
+      - "5432:5432"
+    volumes:
+      - ts_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bench -d market"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  questdb:
+    image: questdb/questdb:10.1.0
+    container_name: qdb_market
+    environment:
+      QDB_PG_USER: admin
+      QDB_PG_PASSWORD: quest
+    ports:
+      - "9000:9000"   # REST / web console / ILP over HTTP (/imp, /exec, /write)
+      - "8812:8812"   # PostgreSQL wire protocol
+      - "9009:9009"   # ILP over TCP
+    volumes:
+      - qdb_data:/var/lib/questdb
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9000/exec?query=select%201 || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  ts_data:
+  qdb_data:

@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+*.duckdb
+*.duckdb.wal
+market.duckdb*
+# downloaded data goes here; the bundled sample under data/*.parquet IS committed
+data/raw/
+data/downloaded/
+*.log
+.DS_Store

@@ -1,0 +1,5 @@
+# Python 3.10+ recommended.
+duckdb==2.0.0
+psycopg[binary]>=3.1
+requests>=2.31
+pyarrow>=15.0
